@@ -86,10 +86,6 @@ score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
-#results = model.predict(imread("EmnistData\\mnist\\train-images2\\124592.jpg").reshape(1, 28, 28, 1))
-results = model.predict(test_data[0])
-print("predictions with test 'a' - ")
-print(results)
 
 # serialize model to JSON
 # model_json = model.to_json()

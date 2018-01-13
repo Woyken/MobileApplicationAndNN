@@ -1,1 +1,3 @@
 # MobileApplicationAndNN
+
+LABA DIENA

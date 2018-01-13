@@ -78,5 +78,5 @@ print('Test accuracy:', score[1])
 # model.save_weights("model-mnist3.h5")
 # print("Saved model to disk")
 
-model.save("model-mnist1.h5")
+model.save("model-mnist3.h5")
 print('saved model to file')

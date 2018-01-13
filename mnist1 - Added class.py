@@ -1,9 +1,3 @@
-'''Trains a simple convnet on the MNIST dataset.
-Gets to 99.25% test accuracy after 12 epochs
-(there is still a lot of margin for parameter tuning).
-16 seconds per epoch on a GRID K520 GPU.
-'''
-
 from __future__ import print_function
 from os import listdir
 from scipy.misc import imread
@@ -93,14 +87,17 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
 #results = model.predict(imread("EmnistData\\mnist\\train-images2\\124592.jpg").reshape(1, 28, 28, 1))
-results = model.predict(test_data[20:30])
+results = model.predict(test_data[0])
 print("predictions with test 'a' - ")
 print(results)
 
 # serialize model to JSON
-model_json = model.to_json()
-with open("model-mnist1-1.json", "w") as json_file:
-    json_file.write(model_json)
+# model_json = model.to_json()
+# with open("model-mnist1-1.json", "w") as json_file:
+#     json_file.write(model_json)
 # serialize weights to HDF5
-model.save_weights("model-mnist1-1.h5")
-print("Saved model to disk")
+# model.save_weights("model-mnist1-1.h5")
+# print("Saved model to disk")
+
+model.save("model-mnist1 - 1.h5")
+print('saved model to file')

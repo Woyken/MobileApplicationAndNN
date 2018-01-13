@@ -48,11 +48,11 @@ model.add(Conv2D(64, kernel_size=(3, 3),
                  activation='relu',
                  input_shape=input_shape))
 model.add(Conv2D(32, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(3, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
+# Added extra MaxPooling layer, should decrese learning time because of smaller matrix.
+model.add(MaxPooling2D(pool_size=(3, 3)))
 model.add(Flatten())
-model.add(Dense(256, activation='relu'))
-model.add(Dropout(0.2))
 model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(num_classes, activation='softmax'))
@@ -71,9 +71,12 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
 # serialize model to JSON
-model_json = model.to_json()
-with open("model-mnist2.json", "w") as json_file:
-    json_file.write(model_json)
+# model_json = model.to_json()
+# with open("model-mnist2.json", "w") as json_file:
+#     json_file.write(model_json)
 # serialize weights to HDF5
-model.save_weights("model-mnist2.h5")
-print("Saved model to disk")
+# model.save_weights("model-mnist2.h5")
+# print("Saved model to disk")
+
+model.save("model-mnist1.h5")
+print('saved model to file')

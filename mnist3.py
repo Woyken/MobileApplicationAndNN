@@ -13,7 +13,8 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
 from keras import backend as K
 
-batch_size = 128
+# Changed batch size to 64
+batch_size = 64
 num_classes = 10
 epochs = 12
 
@@ -45,31 +46,16 @@ y_train = keras.utils.to_categorical(y_train, num_classes)
 y_test = keras.utils.to_categorical(y_test, num_classes)
 
 model = Sequential()
-model.add(Conv2D(32, (3, 3), input_shape=(28,28,1)))
-model.add(BatchNormalization(axis=-1))
-model.add(Activation('relu'))
-model.add(Conv2D(32, (3, 3)))
-model.add(BatchNormalization(axis=-1))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2,2)))
-
-model.add(Conv2D(64,(3, 3)))
-model.add(BatchNormalization(axis=-1))
-model.add(Activation('relu'))
-model.add(Conv2D(64, (3, 3)))
-model.add(BatchNormalization(axis=-1))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2,2)))
-
+model.add(Conv2D(32, kernel_size=(3, 3),
+                 activation='relu',
+                 input_shape=input_shape))
+# removed conv layer
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
 model.add(Flatten())
-
-model.add(Dense(512))
-model.add(BatchNormalization())
-model.add(Activation('relu'))
-model.add(Dropout(0.2))
-model.add(Dense(num_classes))
-
-model.add(Activation('softmax'))
+model.add(Dense(128, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(num_classes, activation='softmax'))
 
 model.compile(loss=keras.losses.categorical_crossentropy,
               optimizer=keras.optimizers.Adadelta(),
@@ -85,9 +71,12 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
 # serialize model to JSON
-model_json = model.to_json()
-with open("model-mnist3.json", "w") as json_file:
-    json_file.write(model_json)
+# model_json = model.to_json()
+# with open("model-mnist3.json", "w") as json_file:
+#     json_file.write(model_json)
 # serialize weights to HDF5
-model.save_weights("model-mnist3.h5")
-print("Saved model to disk")
+# model.save_weights("model-mnist3.h5")
+# print("Saved model to disk")
+
+model.save("model-mnist1.h5")
+print('saved model to file')
